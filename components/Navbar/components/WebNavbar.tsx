@@ -298,7 +298,7 @@ const WebNavbar = ({
 
                   <div className="dropdown-box text-default">
                     <ul className="menu vertical-menu category-menu">
-                      {isLoading === 'succeeded' &&
+                      {isLoading === false &&
                         navbarData?.length > 0 &&
                         navbarData.map((items: any, index: number) => (
                           <li key={index} className="vertical-menu-li-rtl">

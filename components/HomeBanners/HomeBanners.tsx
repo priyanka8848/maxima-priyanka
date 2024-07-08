@@ -20,7 +20,7 @@ const HomeBanner = () => {
   return (
     <>
       <div className="margin_from_nav_l">
-        {isLoading === "succeeded" && homeBannerData?.length > 0 ? (
+        {isLoading === false && homeBannerData?.length > 0 ? (
           <>
             <Carousel>
               {homeBannerData?.map((banner: any, index: number) => {

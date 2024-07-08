@@ -179,7 +179,7 @@ const ProductListingMaster = () => {
           </div>
           <div>
             <div className="row list-toggle-rtl">
-              {CONSTANTS.ENABLE_TOGGLE_PRODUCT_LISTING_VIEW ? (
+
                 <>
                   <div className="col-lg-4 col-4 d-flex justify-content-end">
                     <div className="ms-3 mob-breadcrum-icon d-flex">
@@ -231,7 +231,7 @@ const ProductListingMaster = () => {
                   </div>
 
                 </>
-              ) : (
+      
                 <>
                   <div className="col-lg-6"></div>
                   <div className="col-lg-6 ">
@@ -254,7 +254,7 @@ const ProductListingMaster = () => {
                     </div> */}
                   </div>
                 </>
-              )}
+            
             </div>
           </div>
         </div>
