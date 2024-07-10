@@ -2,10 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useState, useEffect, use } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  fetchLoginUser,
-  login_state,
-} from '../../../store/slices/auth/login_slice';
+import { fetchLoginUser, login_state } from '../../../store/slices/auth/login_slice';
 import { Dropdown, FormControl } from 'react-bootstrap';
 import { useRouter } from 'next/router';
 import useSearchHook from '../../../hooks/GeneralHooks/SearchHooks/search-hook';
@@ -16,6 +13,7 @@ import LinguisticsAndForex from './LinguisticsAndForex';
 import { currency_selector_state } from '../../../store/slices/general_slices/multi-currency-slice';
 import { CONSTANTS } from '../../../services/config/app-config';
 import { ClearToken } from '../../../store/slices/auth/token-login-slice';
+import { THEMECONSTANTS } from '../../../services/config/theme-config';
 const WebNavbar = ({
   navbarData,
   isLoading,
@@ -67,7 +65,7 @@ const WebNavbar = ({
     setId(id);
     setIsShown(false);
   };
-  
+
   const handleClick = async () => {
     let obj = {
       Logouts: true,
@@ -77,8 +75,8 @@ const WebNavbar = ({
     localStorage.removeItem('isLoggedIn');
     localStorage.removeItem('isDealer');
     localStorage.removeItem('isSuperAdmin');
-    localStorage.removeItem("token");
-    localStorage.removeItem("guest");
+    localStorage.removeItem('token');
+    localStorage.removeItem('guest');
     dispatch(ClearToken());
     dispatch({ type: LOGOUT_SUCCESS }); // Dispatch the action using the correct constant
     setLoggedIn(false);
@@ -89,7 +87,7 @@ const WebNavbar = ({
     return () => {
       window.removeEventListener('beforeunload', handleBeforeUnload);
     };
-};
+  };
 
   const handleBeforeUnload = async () => {
     localStorage.clear();
@@ -111,23 +109,13 @@ const WebNavbar = ({
           <div className="container justify-content-sm-start justify-content-md-end justify-content-lg-end  justify-content-xl-end">
             <div className="mobile-nav d-flex justify-content-sm-between">
               <Link href="#" legacyBehavior>
-                <a
-                  className="mobile-menu-toggle  w-icon-hamburger"
-                  aria-label="menu-toggle"
-                  onClick={navMenuclick}
-                ></a>
+                <a className="mobile-menu-toggle  w-icon-hamburger" aria-label="menu-toggle" onClick={navMenuclick}></a>
               </Link>
             </div>
 
             <div className="mx-0  logo_containers my-2 logo_container_mob">
               <Link href="/" legacyBehavior>
-                <Image
-                  src="/assets/images/progearhub_logo.png"
-                  width={270}
-                  height={60}
-                  alt="logo"
-                  className="mob-logo-img1 "
-                />
+                <Image src="/assets/images/progearhub_logo.png" width={270} height={60} alt="logo" className="mob-logo-img1 " />
               </Link>
             </div>
             <div className="header-search  hs-expanded hs-round d-none d-md-flex input-wrapper rounded-searchbar">
@@ -143,11 +131,7 @@ const WebNavbar = ({
                 onKeyDown={handleKeyDown}
                 required
               />
-              <button
-                className="btn btn-search search_button border-0"
-                type="submit"
-                onClick={handleSearch}
-              >
+              <button className="btn btn-search search_button border-0" type="submit" onClick={handleSearch}>
                 <i className="w-icon-search"></i>
               </button>
             </div>
@@ -168,14 +152,12 @@ const WebNavbar = ({
                   Ar
                 </label>
               </div> */}
-              {CONSTANTS.DISPLAY_WISHLIST_ICON_ON_WEBNAVBAR && (
+              {THEMECONSTANTS.DISPLAY_WISHLIST_ICON_ON_WEBNAVBAR && (
                 <div className=" dropdown cart-dropdown cart-offcanvas text-white mx-lg-3 d-flex align-items-center heart-icon-margin heart-icon-mob">
                   <Link href="/wishlist" legacyBehavior>
                     <a className=" cart-toggle label-down link">
                       <i className="w-icon-heart wish_iconn ">
-                        <span className="cart-count wishlist_count text-white">
-                          {wishlistCount || 0}
-                        </span>
+                        <span className="cart-count wishlist_count text-white">{wishlistCount || 0}</span>
                       </i>
                       {/* <span className="wishlist-label d-lg-show">
                     {selectedMultiLangData?.wishlist}
@@ -189,9 +171,7 @@ const WebNavbar = ({
                 <Link href="/cart" legacyBehavior>
                   <a className="cart-toggle label-down link">
                     <i className="w-icon-cart cart_iconn ">
-                      <span className="cart-count text-white">
-                        {cartCount || 0}
-                      </span>
+                      <span className="cart-count text-white">{cartCount || 0}</span>
                     </i>
                     {/* <span className="cart-label">
                       {selectedMultiLangData?.cart}
@@ -202,24 +182,12 @@ const WebNavbar = ({
               <div className="nav_custom_dropdown  d-flex align-items-center login-mob-margin">
                 <Dropdown>
                   {isLoggedIn === 'true' ? (
-                    <Dropdown.Toggle
-                      id="dropdown-basic"
-                      className="dropdown-icon dropdown_active_icon"
-                    >
-                      <i
-                        className=" fa fa-user-o d-flex align-items-center mt-5 mb-2 logout-icon"
-                        aria-hidden="true"
-                      ></i>
+                    <Dropdown.Toggle id="dropdown-basic" className="dropdown-icon dropdown_active_icon">
+                      <i className=" fa fa-user-o d-flex align-items-center mt-5 mb-2 logout-icon" aria-hidden="true"></i>
                     </Dropdown.Toggle>
                   ) : (
-                    <Dropdown.Toggle
-                      id="dropdown-basic"
-                      className="dropdown-icon dropdown_active_icon"
-                    >
-                      <i
-                        className=" fa fa-user-o d-flex align-items-center mt-5 mb-2 logout-icon"
-                        aria-hidden="true"
-                      ></i>
+                    <Dropdown.Toggle id="dropdown-basic" className="dropdown-icon dropdown_active_icon">
+                      <i className=" fa fa-user-o d-flex align-items-center mt-5 mb-2 logout-icon" aria-hidden="true"></i>
                     </Dropdown.Toggle>
                   )}
 
@@ -251,10 +219,7 @@ const WebNavbar = ({
                           {selectedMultiLangData?.my_order}
                         </Link>
                       </Dropdown.Item>
-                      <Dropdown.Item
-                        className="nav_dropdown text-dark"
-                        onClick={handleClick}
-                      >
+                      <Dropdown.Item className="nav_dropdown text-dark" onClick={handleClick}>
                         {selectedMultiLangData?.logout}
                       </Dropdown.Item>
                     </Dropdown.Menu>
@@ -290,9 +255,7 @@ const WebNavbar = ({
                       title="Browse Categories"
                     >
                       <i className="w-icon-category"></i>
-                      <span className="browse-cat-label">
-                        {selectedMultiLangData?.browse_categories}
-                      </span>
+                      <span className="browse-cat-label">{selectedMultiLangData?.browse_categories}</span>
                     </a>
                   </Link>
 
@@ -304,38 +267,26 @@ const WebNavbar = ({
                           <li key={index} className="vertical-menu-li-rtl">
                             <a>
                               <i className="w-icon-tshirt2"></i>
-                              <span className="browse-cat-list-span">
-                                {items.label}
-                              </span>
+                              <span className="browse-cat-list-span">{items.label}</span>
                             </a>
                             <ul className="megamenu vertical-menubar-rtl">
                               {items?.values?.length > 0 &&
                                 items.values.map((items_val: any, i: any) => (
                                   <li key={i}>
-                                    <Link
-                                      href={`${items_val.url}?page=1&currency=${selectedCurrencyValue}`}
-                                      legacyBehavior
-                                    >
+                                    <Link href={`${items_val.url}?page=1&currency=${selectedCurrencyValue}`} legacyBehavior>
                                       <a>
-                                        <h4 className="menu-title ">
-                                          {items_val.label}
-                                        </h4>
+                                        <h4 className="menu-title ">{items_val.label}</h4>
                                       </a>
                                     </Link>
                                     <hr className="divider" />
                                     <ul>
-                                      {items_val.values.map(
-                                        (new_val: any, index: number) => (
-                                          <li key={index}>
-                                            <Link
-                                              href={`${new_val.url}?page=1&currency=${selectedCurrencyValue}`}
-                                              legacyBehavior
-                                            >
-                                              <a>{new_val.label}</a>
-                                            </Link>
-                                          </li>
-                                        )
-                                      )}
+                                      {items_val.values.map((new_val: any, index: number) => (
+                                        <li key={index}>
+                                          <Link href={`${new_val.url}?page=1&currency=${selectedCurrencyValue}`} legacyBehavior>
+                                            <a>{new_val.label}</a>
+                                          </Link>
+                                        </li>
+                                      ))}
                                     </ul>
                                   </li>
                                 ))}
@@ -359,29 +310,19 @@ const WebNavbar = ({
                           <ul className="megamenu ms-3 py-3">
                             {items?.values.map((items_val: any, index: any) => (
                               <li key={index}>
-                                <Link
-                                  href={`${items_val.url}?page=1&currency=${selectedCurrencyValue}`}
-                                  legacyBehavior
-                                >
+                                <Link href={`${items_val.url}?page=1&currency=${selectedCurrencyValue}`} legacyBehavior>
                                   <a>
-                                    <h4 className="menu-title menu_heading">
-                                      {items_val.label}
-                                    </h4>
+                                    <h4 className="menu-title menu_heading">{items_val.label}</h4>
                                   </a>
                                 </Link>
                                 <ul>
-                                  {items_val.values.map(
-                                    (new_val: any, i: any) => (
-                                      <li className="menu_list" key={i}>
-                                        <Link
-                                          href={`${new_val.url}?page=1&currency=${selectedCurrencyValue}`}
-                                          legacyBehavior
-                                        >
-                                          <a>{new_val.label}</a>
-                                        </Link>
-                                      </li>
-                                    )
-                                  )}
+                                  {items_val.values.map((new_val: any, i: any) => (
+                                    <li className="menu_list" key={i}>
+                                      <Link href={`${new_val.url}?page=1&currency=${selectedCurrencyValue}`} legacyBehavior>
+                                        <a>{new_val.label}</a>
+                                      </Link>
+                                    </li>
+                                  ))}
                                 </ul>
                               </li>
                             ))}

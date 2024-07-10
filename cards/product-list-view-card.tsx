@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { CONSTANTS } from '../services/config/app-config';
+import { THEMECONSTANTS } from '../services/config/theme-config';
 import AddToCartApi from '../services/api/cart-page-api/add-to-cart-api';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCartListing } from '../store/slices/cart-listing-page-slice/cart-listing-slice';
@@ -8,11 +8,7 @@ import { showToast } from '../components/ToastNotificationNew';
 
 import { fetchWishlistUser } from '../store/slices/wishlist-slice/wishlist-slice';
 
-import {
-  successmsg,
-  failmsg,
-  hideToast,
-} from '../store/slices/general_slices/toast_notification_slice';
+import { successmsg, failmsg, hideToast } from '../store/slices/general_slices/toast_notification_slice';
 import { login_state } from '../store/slices/auth/login_slice';
 import { Router, useRouter } from 'next/router';
 import { get_access_token } from '../store/slices/auth/token-login-slice';
@@ -48,7 +44,7 @@ const ProductListViewCard = (props: any) => {
   const [show, setshow] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [addToCartButtonDisabled, setAddToCartButtonDisabled] = useState(false);
-  const [qty, setQty] = useState<any>(1)
+  const [qty, setQty] = useState<any>(1);
 
   let isLoggedIn: any;
   let partyName: any;
@@ -82,12 +78,7 @@ const ProductListViewCard = (props: any) => {
     } else {
       partyName = 'Guest';
     }
-    let AddToCartProductRes: any = await AddToCartApi(
-      addCartData,
-      currency_state_from_redux?.selected_currency_value,
-      TokenFromStore?.token,
-      partyName
-    );
+    let AddToCartProductRes: any = await AddToCartApi(addCartData, currency_state_from_redux?.selected_currency_value, TokenFromStore?.token, partyName);
     if (AddToCartProductRes.msg === 'success') {
       showToast('Item Added to cart', 'success');
       dispatch(fetchCartListing(TokenFromStore?.token));
@@ -110,8 +101,7 @@ const ProductListViewCard = (props: any) => {
       catalog_name: newSlug,
       item_name: product_data?.name,
     };
-    const deleteProductFromCatalog =
-      await deleteItemFromCatalog(deleteApiParams);
+    const deleteProductFromCatalog = await deleteItemFromCatalog(deleteApiParams);
     console.log(deleteProductFromCatalog, 'deleteProductFromCatalog');
     if (deleteProductFromCatalog.message.msg === 'success') {
       // dispatch(successmsg(deleteProductFromCatalog?.message?.data));
@@ -125,10 +115,7 @@ const ProductListViewCard = (props: any) => {
           filterDocname: filters_state_from_redux?.docname.toLowerCase(),
           token: TokenFromStore.token,
         };
-        console.log(
-          storeUsefulParamsForFurtherProductListingApi,
-          'storeUsefulParamsForFurtherProductListingApi'
-        );
+        console.log(storeUsefulParamsForFurtherProductListingApi, 'storeUsefulParamsForFurtherProductListingApi');
 
         dispatch(
           ProductListingThunk({
@@ -151,52 +138,34 @@ const ProductListViewCard = (props: any) => {
                   <p className="product_tag text-lg-center my-0 mt-2 best-seller-wrapper">
                     {product_data?.display_tag.length > 0 && (
                       <span className="badge text-bg-primary p-2 fs-5 best-seller-tag">
-                        {product_data?.display_tag.length > 0 &&
-                          product_data?.display_tag[0]}
+                        {product_data?.display_tag.length > 0 && product_data?.display_tag[0]}
                       </span>
                     )}
                   </p>
                 </div>
-                <Link
-                  href={`${product_data?.url}?currency=${currency_state_from_redux?.selected_currency_value}`}
-                >
+                <Link href={`${product_data?.url}?currency=${currency_state_from_redux?.selected_currency_value}`}>
                   {' '}
-                  <div className="product-img list-view-img text-center ">
-                    {handleRenderingOfImages(
-                      product_data?.image_url,
-                      product_data?.brand_img
-                    )}
-                  </div>
+                  <div className="product-img list-view-img text-center ">{handleRenderingOfImages(product_data?.image_url, product_data?.brand_img)}</div>
                 </Link>
               </div>
 
               <div className="col-md-7 col-lg-7 my-auto">
                 <div className="product-details products-name">
                   <h4 className="product-name product-listviewname products-name  ">
-                    <Link
-                      href={`${product_data?.url}?currency=${currency_state_from_redux?.selected_currency_value}`}
-                      legacyBehavior
-                    >
-                      <a className="products-name products-name-font">
-                        {product_data?.item_name}
-                      </a>
+                    <Link href={`${product_data?.url}?currency=${currency_state_from_redux?.selected_currency_value}`} legacyBehavior>
+                      <a className="products-name products-name-font">{product_data?.item_name}</a>
                     </Link>
                   </h4>
                   <div className="d-flex">
                     <div>
                       <div className="fs-5 products-name">
-                        {product_data?.short_description ===
-                          product_data?.item_name
-                          ? ''
-                          : product_data?.short_description}
+                        {product_data?.short_description === product_data?.item_name ? '' : product_data?.short_description}
                       </div>
                       <div className="product-desc text-gray products-name d-inline-flex">
-                        {selectedMultiLangData?.item_code}:
-                        <span>&nbsp;{product_data?.name}</span>
+                        {selectedMultiLangData?.item_code}:<span>&nbsp;{product_data?.name}</span>
                       </div>
                       <div>
-                        {product_data?.weight_per_unit === 0 ||
-                          product_data?.weight_per_unit === null ? (
+                        {product_data?.weight_per_unit === 0 || product_data?.weight_per_unit === null ? (
                           ''
                         ) : (
                           <div className="product-desc text-gray d-inline-flex">
@@ -218,33 +187,27 @@ const ProductListViewCard = (props: any) => {
                         )}
                       </div>
 
-                      {product_data?.price === null ||
-                        product_data?.price === 0 ? (
+                      {product_data?.price === null || product_data?.price === 0 ? (
                         ''
                       ) : (
                         <>
-                          {CONSTANTS.DISPLAY_PRODUCT_PRICE_ON_PRODUCT_LISTING_CARD && (
+                          {THEMECONSTANTS.DISPLAY_PRODUCT_PRICE_ON_PRODUCT_LISTING_CARD && (
                             <div className="product-price price_font_family products-name">
-                              {product_data?.currency_symbol}{' '}
-                              {product_data?.price}{' '}
+                              {product_data?.currency_symbol} {product_data?.price}{' '}
                               <del className="old-price fs-3 pl-1 price_font_family product-font-family">
-                                <span>{product_data?.currency_symbol}</span>{' '}
-                                {product_data?.mrp_price}
+                                <span>{product_data?.currency_symbol}</span> {product_data?.mrp_price}
                               </del>
                             </div>
                           )}
                         </>
                       )}
                       <div className="p-0 m-0 row">
-                        {CONSTANTS.DISPLAY_ADD_CART_BUTTON_ON_PRODUCT_LISTING_CARD && (
+                        {THEMECONSTANTS.DISPLAY_ADD_CART_BUTTON_ON_PRODUCT_LISTING_CARD && (
                           <div className="col-lg-7">
                             {isLoggedIn === 'true' ? (
                               <div className="text-center w-0">
                                 <button
-                                  className={` ${addToCartButtonDisabled === true
-                                    ? 'disabled'
-                                    : ''
-                                    } btn standard_button add_cart_btn`}
+                                  className={` ${addToCartButtonDisabled === true ? 'disabled' : ''} btn standard_button add_cart_btn`}
                                   onClick={handleShowModalCart}
                                 >
                                   {selectedMultiLangData?.add_to_cart}
@@ -253,9 +216,7 @@ const ProductListViewCard = (props: any) => {
                             ) : (
                               <Link href="/login">
                                 <div className="text-center w-50">
-                                  <button className="btn standard_button">
-                                    {selectedMultiLangData?.add_to_cart}
-                                  </button>
+                                  <button className="btn standard_button">{selectedMultiLangData?.add_to_cart}</button>
                                 </div>
                               </Link>
                             )}
@@ -263,18 +224,14 @@ const ProductListViewCard = (props: any) => {
                         )}
                         {router.route === '/catalog/[category]' ? (
                           <div className="col-lg-5">
-                          <button
-                            type="button"
-                            className={` btn btn-primary ml-5 cart_btn_gtag listing-cartbtn`}
-                            onClick={handleDeleteCatalogProduct}
-                          >
-                            <i className="fa fa-trash-o" aria-hidden="true"></i>
-                          </button>
+                            <button type="button" className={` btn btn-primary ml-5 cart_btn_gtag listing-cartbtn`} onClick={handleDeleteCatalogProduct}>
+                              <i className="fa fa-trash-o" aria-hidden="true"></i>
+                            </button>
                           </div>
                         ) : (
                           ''
                         )}
-                        {CONSTANTS.DISPLAY_ADD_CATALOG_BUTTON_ON_PRODUCT_LISTING_CARD && (
+                        {THEMECONSTANTS.DISPLAY_ADD_CATALOG_BUTTON_ON_PRODUCT_LISTING_CARD && (
                           <div className="col-lg-5">
                             {isLoggedIn === 'true' && (
                               <>
@@ -282,13 +239,9 @@ const ProductListViewCard = (props: any) => {
                                   <button
                                     type="button"
                                     className={`btn btn-link catalog-btn-size pt-2 fs-5 products-name`}
-                                    onClick={() =>
-                                      handleShow(product_data.name)
-                                    }
+                                    onClick={() => handleShow(product_data.name)}
                                   >
-                                    <span className="bold">
-                                      {selectedMultiLangData?.add_to_catalog}
-                                    </span>
+                                    <span className="bold">{selectedMultiLangData?.add_to_catalog}</span>
                                   </button>
                                 ) : (
                                   ''
@@ -320,7 +273,7 @@ const ProductListViewCard = (props: any) => {
                   </div>
                 </div>
               </div>
-              {CONSTANTS.DISPLAY_WISHLIST_ICON_ON_PRODUCT_LISTING_CARD && (
+              {THEMECONSTANTS.DISPLAY_WISHLIST_ICON_ON_PRODUCT_LISTING_CARD && (
                 <div className="col-lg-1 col-md-1 mt-1 text-en heart-icon-wrapper heart-icon-wrapper-mob">
                   {wishlistData?.map((values: any) => {
                     if (values.name === product_data?.name) {
@@ -353,22 +306,12 @@ const ProductListViewCard = (props: any) => {
                             }, 900);
                           }}
                         >
-                          <i
-                            className="fa fa-heart-o text-danger fs-1"
-                            aria-hidden="true"
-                            data-bs-toggle="tooltip"
-                            title="Add to Wishlist"
-                          ></i>
+                          <i className="fa fa-heart-o text-danger fs-1" aria-hidden="true" data-bs-toggle="tooltip" title="Add to Wishlist"></i>
                         </a>
                       ) : (
                         <Link href="/login" legacyBehavior>
                           <a style={{ cursor: 'pointer' }}>
-                            <i
-                              className="fa fa-heart-o text-danger fs-1"
-                              aria-hidden="true"
-                              data-bs-toggle="tooltip"
-                              title="Add to Wishlist"
-                            ></i>
+                            <i className="fa fa-heart-o text-danger fs-1" aria-hidden="true" data-bs-toggle="tooltip" title="Add to Wishlist"></i>
                           </a>
                         </Link>
                       )}
@@ -396,18 +339,11 @@ const ProductListViewCard = (props: any) => {
                         }, 900);
                       }}
                     >
-                      <i
-                        className="fa fa-heart text-danger fs-1 "
-                        aria-hidden="true"
-                        data-bs-toggle="tooltip"
-                        title="Added to Wishlist"
-                      ></i>
+                      <i className="fa fa-heart text-danger fs-1 " aria-hidden="true" data-bs-toggle="tooltip" title="Added to Wishlist"></i>
                     </a>
                   )}
                 </div>
               )}
-
-
             </div>
           </div>
         </div>
